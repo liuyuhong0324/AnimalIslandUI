@@ -38,21 +38,32 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Showcase(modifier: Modifier = Modifier) {
-    val tabs = listOf(
-        TabItem("Buttons") { ButtonTab() },
-        TabItem("Forms") { FormTab() },
-        TabItem("Containers") { ContainerTab() },
-        TabItem("Extra") { ExtraTab() }
-    )
+    var islandLoadingActive by remember { mutableStateOf(false) }
 
-    Box(modifier = modifier.fillMaxSize().background(BgColor)) {
-        Column(
-            modifier = Modifier.fillMaxSize().padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            AnimalTime()
-            AnimalTabs(tabs = tabs, modifier = Modifier.fillMaxWidth().weight(1f))
+    AnimalLoading(active = islandLoadingActive) {
+        val tabs = listOf(
+            TabItem("Buttons") { ButtonTab() },
+            TabItem("Forms") { FormTab() },
+            TabItem("Containers") { ContainerTab() },
+            TabItem("Extra") { ExtraTab(onStartLoading = { islandLoadingActive = true }) }
+        )
+
+        Box(modifier = modifier.fillMaxSize().background(BgColor)) {
+            Column(
+                modifier = Modifier.fillMaxSize().padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                AnimalTime()
+                AnimalTabs(tabs = tabs, modifier = Modifier.fillMaxWidth().weight(1f))
+            }
+        }
+    }
+
+    if (islandLoadingActive) {
+        LaunchedEffect(Unit) {
+            kotlinx.coroutines.delay(3000)
+            islandLoadingActive = false
         }
     }
 }
@@ -161,13 +172,20 @@ fun ContainerTab() {
 }
 
 @Composable
-fun ExtraTab() {
+fun ExtraTab(onStartLoading: () -> Unit) {
     var trigger by remember { mutableIntStateOf(0) }
 
     Column(
         modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
+        SectionTitle("Island Loading")
+        AnimalButton(
+            text = "Launch Island Loading",
+            onClick = onStartLoading,
+            modifier = Modifier.fillMaxWidth()
+        )
+
         SectionTitle("Typewriter & Icons")
         AnimalCard {
             Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
