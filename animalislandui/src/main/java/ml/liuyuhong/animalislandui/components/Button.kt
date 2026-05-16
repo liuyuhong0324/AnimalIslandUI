@@ -1,6 +1,8 @@
 package ml.liuyuhong.animalislandui.components
 
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
@@ -11,7 +13,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -52,37 +58,39 @@ fun AnimalButton(
         ButtonSize.LARGE -> PaddingValues(horizontal = 32.dp)
     }
 
-    val fontSize = when (size) {
-        ButtonSize.SMALL -> 12.sp
-        ButtonSize.MIDDLE -> 14.sp
-        ButtonSize.LARGE -> 16.sp
-    }
-
     val borderRadius = when (size) {
         ButtonSize.SMALL -> 12.dp
         ButtonSize.MIDDLE -> 50.dp
         ButtonSize.LARGE -> 24.dp
     }
 
-    val shadowHeight = if (isPressed) 1.dp else 5.dp
+    val shadowHeight = if (isPressed || loading) 1.dp else 5.dp
 
-    val bgColor = when (type) {
-        ButtonType.PRIMARY -> BgColor
-        ButtonType.DANGER -> ErrorColor
+    val bgColor = when {
+        loading -> Color(0xFF0EC4B6)
+        type == ButtonType.PRIMARY -> BgColor
+        type == ButtonType.DANGER -> ErrorColor
         else -> BgColor
     }
 
-    val textColor = when (type) {
-        ButtonType.PRIMARY -> TextColor
-        ButtonType.DANGER -> Color.White
-        else -> TextColor
-    }
-
-    val shadowColor = when (type) {
-        ButtonType.PRIMARY -> ShadowBtn
-        ButtonType.DANGER -> ErrorColorActive
+    val shadowColor = when {
+        loading -> Color(0xFF01B0A7)
+        type == ButtonType.PRIMARY -> ShadowBtn
+        type == ButtonType.DANGER -> ErrorColorActive
         else -> ShadowBtn
     }
+
+    // Loading Animation Value
+    val infiniteTransition = rememberInfiniteTransition(label = "loading")
+    val animatedOffset by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 28.28f, // background-size
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "offset"
+    )
 
     Column(
         modifier = modifier
@@ -110,7 +118,28 @@ fun AnimalButton(
                     .height(height)
                     .offset(y = -shadowHeight)
                     .clip(RoundedCornerShape(borderRadius))
-                    .background(bgColor)
+                    .then(
+                        if (loading) {
+                            Modifier
+                                .border(4.dp, Color(0xFF4DE2DA), RoundedCornerShape(borderRadius))
+                                .drawBehind {
+                                    // Draw striped background for loading
+                                    val stripeWidth = 28.28f
+                                    val brush = Brush.linearGradient(
+                                        0.0f to Color(0xFF0EC4B6),
+                                        0.5f to Color(0xFF0EC4B6),
+                                        0.5f to Color(0xFF01B0A7),
+                                        1.0f to Color(0xFF01B0A7),
+                                        start = Offset(animatedOffset, animatedOffset),
+                                        end = Offset(animatedOffset + stripeWidth, animatedOffset + stripeWidth),
+                                        tileMode = TileMode.Repeated
+                                    )
+                                    drawRect(brush = brush)
+                                }
+                        } else {
+                            Modifier.background(bgColor)
+                        }
+                    )
                     .clickable(
                         interactionSource = interactionSource,
                         indication = null,
@@ -124,18 +153,7 @@ fun AnimalButton(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    val textStyle = TextStyle(
-                        color = textColor,
-                        fontSize = fontSize,
-                        fontWeight = FontWeight.SemiBold,
-                        letterSpacing = 0.02.sp
-                    )
-                    
-                    CompositionLocalProvider(
-                        // Could provide custom text style here if needed
-                    ) {
-                        content()
-                    }
+                    content()
                 }
             }
         }
@@ -165,9 +183,10 @@ fun AnimalButton(
             ButtonSize.MIDDLE -> 14.sp
             ButtonSize.LARGE -> 16.sp
         }
-        val textColor = when (type) {
-            ButtonType.PRIMARY -> TextColor
-            ButtonType.DANGER -> Color.White
+        val textColor = when {
+            loading -> Color.White
+            type == ButtonType.PRIMARY -> TextColor
+            type == ButtonType.DANGER -> Color.White
             else -> TextColor
         }
         Text(
