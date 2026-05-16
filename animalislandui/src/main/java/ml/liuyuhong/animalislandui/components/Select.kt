@@ -1,5 +1,6 @@
 package ml.liuyuhong.animalislandui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -62,9 +63,9 @@ fun AnimalSelect(
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },
-            modifier = Modifier
-                .background(BgColorContent)
-                .border(1.dp, BorderColorLight, RoundedCornerShape(12.dp))
+            shape = RoundedCornerShape(12.dp),
+            containerColor = BgColorContent,
+            modifier = Modifier.border(1.dp, BorderColorLight, RoundedCornerShape(12.dp))
         ) {
             options.forEach { option ->
                 DropdownMenuItem(
