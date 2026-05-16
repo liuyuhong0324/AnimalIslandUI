@@ -12,10 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -70,16 +68,17 @@ fun AnimalSwitch(
     val fontSize = if (size == SwitchSize.DEFAULT) 11.sp else 9.sp
     val textPadding = if (size == SwitchSize.DEFAULT) 8.dp else 6.dp
 
+    // The container height is same as track height. 
+    // Handle will float slightly outside if offset is used, but Box doesn't clip by default.
     Box(
         modifier = modifier
             .graphicsLayer { alpha = if (enabled) 1f else 0.5f }
-            .size(trackWidth, trackHeight + 3.dp) // extra for handle float
+            .size(trackWidth, trackHeight)
     ) {
         // Track
         Box(
             modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .size(trackWidth, trackHeight)
+                .fillMaxSize()
                 .background(trackColor, RoundedCornerShape(50.dp))
                 .border(borderWidth, trackBorderColor, RoundedCornerShape(50.dp))
                 .clickable(
@@ -118,7 +117,9 @@ fun AnimalSwitch(
         // Handle
         Box(
             modifier = Modifier
-                .offset(x = handlePadding + handlePosition, y = -2.dp) // handle floats
+                .align(Alignment.CenterStart) // Center vertically within track
+                .padding(start = handlePadding)
+                .offset(x = handlePosition, y = (-2).dp) // Apply horizontal animation and vertical float
                 .size(handleSize)
         ) {
             // Handle Shadow
