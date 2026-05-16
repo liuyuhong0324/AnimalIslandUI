@@ -1,0 +1,1 @@
+# Consumer Proguard Rules
