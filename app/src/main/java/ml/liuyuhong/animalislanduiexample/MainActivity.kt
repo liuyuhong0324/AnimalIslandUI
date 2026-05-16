@@ -25,11 +25,33 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             AnimalIslandUITheme {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    bottomBar = { AnimalFooter(type = FooterType.SEA) }
-                ) { innerPadding ->
-                    Showcase(Modifier.padding(innerPadding))
+                var islandLoadingActive by remember { mutableStateOf(false) }
+
+                AnimalLoading(active = islandLoadingActive) {
+                    Scaffold(
+                        modifier = Modifier.fillMaxSize(),
+                        containerColor = BgColor,
+                        bottomBar = {
+                            AnimalFooter(
+                                type = FooterType.SEA,
+                                modifier = Modifier.navigationBarsPadding()
+                            )
+                        }
+                    ) { innerPadding ->
+                        Showcase(
+                            onStartLoading = { islandLoadingActive = true },
+                            modifier = Modifier
+                                .padding(innerPadding)
+                                .consumeWindowInsets(innerPadding)
+                        )
+                    }
+                }
+
+                if (islandLoadingActive) {
+                    LaunchedEffect(Unit) {
+                        kotlinx.coroutines.delay(3000)
+                        islandLoadingActive = false
+                    }
                 }
             }
         }
@@ -37,34 +59,26 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Showcase(modifier: Modifier = Modifier) {
-    var islandLoadingActive by remember { mutableStateOf(false) }
+fun Showcase(
+    onStartLoading: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val tabs = listOf(
+        TabItem("Buttons") { ButtonTab() },
+        TabItem("Forms") { FormTab() },
+        TabItem("Containers") { ContainerTab() },
+        TabItem("Extra") { ExtraTab(onStartLoading = onStartLoading) }
+    )
 
-    AnimalLoading(active = islandLoadingActive) {
-        val tabs = listOf(
-            TabItem("Buttons") { ButtonTab() },
-            TabItem("Forms") { FormTab() },
-            TabItem("Containers") { ContainerTab() },
-            TabItem("Extra") { ExtraTab(onStartLoading = { islandLoadingActive = true }) }
-        )
-
-        Box(modifier = modifier.fillMaxSize().background(BgColor)) {
-            Column(
-                modifier = Modifier.fillMaxSize().padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                AnimalTime()
-                AnimalTabs(tabs = tabs, modifier = Modifier.fillMaxWidth().weight(1f))
-            }
-        }
-    }
-
-    if (islandLoadingActive) {
-        LaunchedEffect(Unit) {
-            kotlinx.coroutines.delay(3000)
-            islandLoadingActive = false
-        }
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(top = 16.dp, start = 16.dp, end = 16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        AnimalTime()
+        AnimalTabs(tabs = tabs, modifier = Modifier.fillMaxWidth().weight(1f))
     }
 }
 

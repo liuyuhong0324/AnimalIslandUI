@@ -82,7 +82,7 @@ fun PhoneTopBar() {
 fun AppGrid() {
     val apps = listOf(
         AppItemData(AppPurple, "Camera", R.drawable.icon_camera),
-        AppItemData(AppBlue, "App", R.drawable.icon_variant),
+        AppItemData(AppBlue, "App", R.drawable.icon_miles),
         AppItemData(AppYellow, "Critter", R.drawable.icon_critterpedia),
         AppItemData(AppOrange, "DIY", R.drawable.icon_diy),
         AppItemData(AppPink, "Shop", R.drawable.icon_shopping),
