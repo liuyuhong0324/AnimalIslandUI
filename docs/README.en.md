@@ -1,7 +1,7 @@
 # 🏝 Animal-Island-UI
 
 <div align="center">
-    <img src="docs/img/readme-home.png" alt="animal-island-ui" style="border-radius: 12px; width: 40%; display: block; margin: 0 auto;" />    
+    <img src="./img/readme-home.png" alt="animal-island-ui" style="border-radius: 12px; width: 40%; display: block; margin: 0 auto;" />    
 </div>
 
 <div align="center">
@@ -19,7 +19,7 @@ A lightweight Android Jetpack Compose component library inspired by Animal Cross
 <br/>
 
 <p align="center">
-    <a href="./README.md">简体中文</a> | English
+    <a href="../README.md">简体中文</a> | English
 </p>
 
 ---
@@ -42,8 +42,8 @@ All visual elements, layouts, icons, and animations are independently designed a
 
 | | | |
 |---|---|---|
-| ![](screenshots/1000155084_1778943324330.jpg) | ![](screenshots/1000155085_1778943324463.jpg) | ![](screenshots/1000155086_1778943324505.jpg) |
-| ![](screenshots/1000155087_1778943324559.jpg) | | |
+| ![](../screenshots/1000155084_1778943324330.jpg) | ![](../screenshots/1000155085_1778943324463.jpg) | ![](../screenshots/1000155086_1778943324505.jpg) |
+| ![](../screenshots/1000155087_1778943324559.jpg) | | |
 
 ## Getting Started
 
@@ -239,8 +239,8 @@ All colors are defined in `theme/Color.kt` and can be imported directly for use.
 
 | Resource | Description |
 |---|---|
-| [`DESIGN_PROMPT.md`](./DESIGN_PROMPT.md) | Design system prompt - Color palettes, fonts, sizing standards, etc. |
-| [`SKILL.md`](./SKILL.md) | Development specification document - Pixel-level style guide and new component checklist |
+| [`DESIGN_PROMPT.md`](../DESIGN_PROMPT.md) | Design system prompt - Color palettes, fonts, sizing standards, etc. |
+| [`SKILL.md`](../SKILL.md) | Development specification document - Pixel-level style guide and new component checklist |
 | [`CONTRIBUTING.md`](./CONTRIBUTING.md) | Contribution guide - How to submit PRs and component suggestions |
 
 ## Important Notes
