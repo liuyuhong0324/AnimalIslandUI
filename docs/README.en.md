@@ -240,7 +240,6 @@ All colors are defined in `theme/Color.kt` and can be imported directly for use.
 |---|---|
 | [`DESIGN_PROMPT.md`](../DESIGN_PROMPT.md) | Design system prompt - Color palettes, fonts, sizing standards, etc. |
 | [`SKILL.md`](../SKILL.md) | Development specification document - Pixel-level style guide and new component checklist |
-| [`CONTRIBUTING.md`](./CONTRIBUTING.md) | Contribution guide - How to submit PRs and component suggestions |
 
 ## Important Notes
 

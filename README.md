@@ -240,7 +240,6 @@ AnimalslandUIExample/
 |---|---|
 | [`DESIGN_PROMPT.md`](./DESIGN_PROMPT.md) | 设计系统提示词 - 包含色板、字体、尺寸等规范 |
 | [`SKILL.md`](./SKILL.md) | 开发规范文档 - 像素级样式指南与新组件 Checklist |
-| [`CONTRIBUTING.md`](./CONTRIBUTING.md) | 贡献指南 - 如何提交 PR 与新组件建议 |
 
 
 ## 注意事项
