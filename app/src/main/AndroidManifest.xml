@@ -16,9 +16,15 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AnimalIslandUIExample">
+        </activity>
+        <activity
+            android:name=".ShowcaseActivity"
+            android:exported="true"
+            android:label="Animal Island UI Showcase"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AnimalIslandUIExample">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
