@@ -132,12 +132,12 @@ fun IslandDeskContent(modifier: Modifier = Modifier) {
                                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                                 ) {
                                     AnimalButton(
-                                        text = "New Project", 
+                                        text = "New",
                                         modifier = Modifier.weight(1f),
                                         onClick = {}
                                     )
                                     AnimalButton(
-                                        text = "Urgent Help", 
+                                        text = "Help",
                                         type = ButtonType.DANGER, 
                                         modifier = Modifier.weight(1f),
                                         onClick = {}
