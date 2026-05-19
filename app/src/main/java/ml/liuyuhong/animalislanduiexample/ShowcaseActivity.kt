@@ -92,13 +92,13 @@ fun IslandDeskContent(modifier: Modifier = Modifier) {
             AnimalDivider(type = DividerType.WAVE_YELLOW)
 
             if (isTablet) {
-                // Tablet Layout: 3 Columns with balanced weights
+                // Tablet Layout: 3 Columns with adjusted weights to fit NookPhone
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
-                    // Left: Quick Access
-                    Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                    // Left: Quick Access (Increased weight for 3-column phone)
+                    Column(modifier = Modifier.weight(1.4f), verticalArrangement = Arrangement.spacedBy(20.dp)) {
                         SectionLabel("Quick Access")
                         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                             NookPhone()
@@ -111,8 +111,8 @@ fun IslandDeskContent(modifier: Modifier = Modifier) {
                         }
                     }
 
-                    // Center: Main Tasks (Wider for Project Card)
-                    Column(modifier = Modifier.weight(1.8f), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                    // Center: Main Tasks
+                    Column(modifier = Modifier.weight(1.5f), verticalArrangement = Arrangement.spacedBy(20.dp)) {
                         SectionLabel("Island Projects")
                         AnimalCard(type = CardType.TITLE, title = "Active Construction", modifier = Modifier.fillMaxWidth()) {
                             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -154,7 +154,7 @@ fun IslandDeskContent(modifier: Modifier = Modifier) {
                     }
 
                     // Right: Form Controls
-                    Column(modifier = Modifier.weight(1.2f), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                    Column(modifier = Modifier.weight(1.1f), verticalArrangement = Arrangement.spacedBy(20.dp)) {
                         SectionLabel("Island Settings")
                         AnimalCard(color = AppYellow, modifier = Modifier.fillMaxWidth()) {
                             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
