@@ -36,13 +36,7 @@ class ShowcaseActivity : ComponentActivity() {
                 AnimalLoading(active = isLoading) {
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
-                        containerColor = BgColor,
-//                        bottomBar = {
-//                            AnimalFooter(
-//                                type = FooterType.SEA,
-//                                modifier = Modifier.navigationBarsPadding()
-//                            )
-//                        }
+                        containerColor = BgColor
                     ) { innerPadding ->
                         IslandDeskContent(
                             modifier = Modifier
@@ -70,7 +64,7 @@ fun IslandDeskContent(modifier: Modifier = Modifier) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState()) // Prevents clipping on 4:3 screens
+                .verticalScroll(rememberScrollState())
                 .padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
@@ -92,12 +86,11 @@ fun IslandDeskContent(modifier: Modifier = Modifier) {
             AnimalDivider(type = DividerType.WAVE_YELLOW)
 
             if (isTablet) {
-                // Tablet Layout: 3 Columns with adjusted weights to fit NookPhone
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
-                    // Left: Quick Access (Increased weight for 3-column phone)
+                    // Column 1
                     Column(modifier = Modifier.weight(1.4f), verticalArrangement = Arrangement.spacedBy(20.dp)) {
                         SectionLabel("Quick Access")
                         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
@@ -111,87 +104,59 @@ fun IslandDeskContent(modifier: Modifier = Modifier) {
                         }
                     }
 
-                    // Center: Main Tasks
+                    // Column 2
                     Column(modifier = Modifier.weight(1.5f), verticalArrangement = Arrangement.spacedBy(20.dp)) {
-                        SectionLabel("Island Projects")
-                        AnimalCard(type = CardType.TITLE, title = "Active Construction", modifier = Modifier.fillMaxWidth()) {
+                        SectionLabel("Construction & Logs")
+                        AnimalCard(type = CardType.TITLE, title = "Projects", modifier = Modifier.fillMaxWidth()) {
                             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                                AnimalCollapse(header = "Bridge to North Shore") {
-                                    Text("Status: 85% Funded. Requires 15,000 more Bells.", color = TextColorMuted)
-                                    Spacer(modifier = Modifier.height(12.dp))
-                                    AnimalButton(text = "Donate Now", size = ButtonSize.SMALL, onClick = {})
+                                AnimalCollapse(header = "Bridge Project") {
+                                    Text("Status: 85% Funded.", color = TextColorMuted)
                                 }
-                                AnimalCollapse(header = "Museum Art Gallery") {
-                                    Text("Status: Planning Phase. Talk to Blathers for details.", color = TextColorMuted)
-                                }
-                                
-                                Spacer(modifier = Modifier.height(8.dp))
-                                
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.spacedBy(16.dp)
-                                ) {
-                                    AnimalButton(
-                                        text = "New",
-                                        modifier = Modifier.weight(1f),
-                                        onClick = {}
-                                    )
-                                    AnimalButton(
-                                        text = "Help",
-                                        type = ButtonType.DANGER, 
-                                        modifier = Modifier.weight(1f),
-                                        onClick = {}
-                                    )
+                                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                    AnimalButton(text = "New", modifier = Modifier.weight(1f), onClick = {})
+                                    AnimalButton(text = "Urgent", type = ButtonType.DANGER, modifier = Modifier.weight(1f), onClick = {})
                                 }
                             }
                         }
                         
-                        SectionLabel("Recent Logs")
                         AnimalCodeBlock(
-                            code = "INFO: New resident 'Raymond' arrived.\nSUCCESS: Blue Rose bloomed.\nWARN: Prices dropping!",
+                            code = "Resident 'Raymond' arrived.\nSuccess: Blue Rose bloomed.",
                             modifier = Modifier.fillMaxWidth()
                         )
+
+                        SectionLabel("Island Registry")
+                        val columns = listOf(
+                            TableColumn<Map<String, String>>(title = "Name", dataIndex = "name"),
+                            TableColumn<Map<String, String>>(title = "Status", render = { _, record, _ ->
+                                Text(record["status"] ?: "", color = SuccessColor, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            })
+                        )
+                        val data = listOf(
+                            mapOf("name" to "Raymond", "status" to "Resident"),
+                            mapOf("name" to "Marshal", "status" to "Resident"),
+                            mapOf("name" to "Raymond", "status" to "Resident"),
+                            mapOf("name" to "Marshal", "status" to "Resident")
+                        )
+                        AnimalTable(columns = columns, dataSource = data, modifier = Modifier.fillMaxWidth())
                     }
 
-                    // Right: Form Controls
+                    // Column 3
                     Column(modifier = Modifier.weight(1.1f), verticalArrangement = Arrangement.spacedBy(20.dp)) {
-                        SectionLabel("Island Settings")
+                        SectionLabel("Settings")
                         AnimalCard(color = AppYellow, modifier = Modifier.fillMaxWidth()) {
                             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                                AnimalInput(
-                                    value = islandName, 
-                                    onValueChange = { islandName = it }, 
-                                    placeholder = "Island name..."
-                                )
+                                AnimalInput(value = islandName, onValueChange = { islandName = it })
                                 AnimalSelect(
-                                    options = listOf(
-                                        SelectOption("Early Bird", "morning"), 
-                                        SelectOption("Night Owl", "night"),
-                                        SelectOption("Beautiful Island", "clean")
-                                    ),
+                                    options = listOf(SelectOption("Early Bird", "1"), SelectOption("Night Owl", "2")),
                                     selectedOption = selectedOrdinance,
-                                    onOptionSelected = { selectedOrdinance = it },
-                                    placeholder = "Select Ordinance"
+                                    onOptionSelected = { selectedOrdinance = it }
                                 )
                                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
                                     Text("Alerts", fontWeight = FontWeight.Bold, color = TextColorBody)
-                                    AnimalSwitch(
-                                        checked = alertsEnabled, 
-                                        onCheckedChange = { alertsEnabled = it },
-                                        checkedChildren = "ON",
-                                        unCheckedChildren = "OFF"
-                                    )
+                                    AnimalSwitch(checked = alertsEnabled, onCheckedChange = { alertsEnabled = it })
                                 }
-                                AnimalCheckbox(
-                                    checked = allowVisitors, 
-                                    onCheckedChange = { allowVisitors = it }, 
-                                    label = "Allow visitors"
-                                )
-                                AnimalButton(
-                                    text = "Save Config", 
-                                    modifier = Modifier.fillMaxWidth(), 
-                                    onClick = {}
-                                )
+                                AnimalCheckbox(checked = allowVisitors, onCheckedChange = { allowVisitors = it }, label = "Visitors")
+                                AnimalButton(text = "Save", modifier = Modifier.fillMaxWidth(), onClick = {})
                             }
                         }
                         
@@ -202,19 +167,13 @@ fun IslandDeskContent(modifier: Modifier = Modifier) {
                             AnimalIcon(AnimalIconName.CAMERA, tint = AppPurple, size = 28.dp)
                             AnimalIcon(AnimalIconName.DIY, tint = AppOrange, size = 28.dp)
                             AnimalIcon(AnimalIconName.MAP, tint = AppTeal, size = 28.dp)
-                            AnimalIcon(AnimalIconName.MILES, tint = AppBlue, size = 28.dp)
                         }
                     }
                 }
             } else {
-                // Mobile Layout
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(24.dp)
-                ) {
-                    AnimalCard(title = "Welcome") {
-                        Text("Rotate to tablet mode for the desk experience.", color = TextColorBody)
-                    }
+                // Mobile
+                Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(24.dp)) {
+                    AnimalCard(title = "Welcome") { Text("Rotate to tablet mode.", color = TextColorBody) }
                     NookPhone()
                 }
             }
