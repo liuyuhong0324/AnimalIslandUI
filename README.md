@@ -11,9 +11,9 @@
 <br/>
 
 <div align="center">
-    <a href="https://github.com/liuyuhong0324/animal-island-ui/stargazers"><img src="https://img.shields.io/github/stars/liuyuhong0324/animal-island-ui?style=flat-square" alt="Stars"></a>
+    <a href="https://github.com/liuyuhong0324/AnimalIslandUI/stargazers"><img src="https://img.shields.io/github/stars/liuyuhong0324/animal-island-ui?style=flat-square" alt="Stars"></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License"></a>
-    <a href="https://github.com/liuyuhong0324/animal-island-ui/releases"><img src="https://img.shields.io/github/v/tag/liuyuhong0324/animal-island-ui?label=version&style=flat-square" alt="Version"></a>
+    <a href="https://github.com/liuyuhong0324/AnimalIslandUI/releases"><img src="https://img.shields.io/github/v/tag/liuyuhong0324/animal-island-ui?label=version&style=flat-square" alt="Version"></a>
 </div>
 
 <br/>
@@ -264,8 +264,8 @@ AnimalslandUIExample/
 
 ## 联系方式
 
-- 📧 遇到问题？提交 [Issue](https://github.com/liuyuhong0324/animal-island-ui/issues)
-- 🐛 发现 Bug？提交 [Issue](https://github.com/liuyuhong0324/animal-island-ui/issues)
+- 📧 遇到问题？提交 [Issue](https://github.com/liuyuhong0324/AnimalIslandUI/issues)
+- 🐛 发现 Bug？提交 [Issue](https://github.com/liuyuhong0324/AnimalIslandUI/issues)
 - 💡 功能建议？欢迎讨论
 - 🤝 版权相关沟通？邮件联系
 
