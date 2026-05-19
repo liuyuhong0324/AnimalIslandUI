@@ -11,9 +11,9 @@ A lightweight Android Jetpack Compose component library inspired by Animal Cross
 <br/>
 
 <div align="center">
-    <a href="https://github.com/liuyuhong0324/AnimalIslandUI/stargazers"><img src="https://img.shields.io/github/stars/liuyuhong0324/animal-island-ui?style=flat-square" alt="Stars"></a>
+    <a href="https://github.com/liuyuhong0324/AnimalIslandUI/stargazers"><img src="https://img.shields.io/github/stars/liuyuhong0324/AnimalIslandUI?style=flat-square" alt="Stars"></a>
     <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License"></a>
-    <a href="https://github.com/liuyuhong0324/AnimalIslandUI/releases"><img src="https://img.shields.io/github/v/tag/liuyuhong0324/animal-island-ui?label=version&style=flat-square" alt="Version"></a>
+    <a href="https://github.com/liuyuhong0324/AnimalIslandUI/releases"><img src="https://img.shields.io/github/v/tag/liuyuhong0324/AnimalIslandUI?label=version&style=flat-square" alt="Version"></a>
 </div>
 
 <br/>
