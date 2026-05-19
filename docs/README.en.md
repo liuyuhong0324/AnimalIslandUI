@@ -40,10 +40,9 @@ All visual elements, layouts, icons, and animations are independently designed a
 
 ## Preview
 
-| | | |
-|---|---|---|
-| ![](../screenshots/1000155084_1778943324330.jpg) | ![](../screenshots/1000155085_1778943324463.jpg) | ![](../screenshots/1000155086_1778943324505.jpg) |
-| ![](../screenshots/1000155087_1778943324559.jpg) | | |
+|                               |
+|-------------------------------|
+| ![](../docs/img/showcase.png) |
 
 ## Getting Started
 
